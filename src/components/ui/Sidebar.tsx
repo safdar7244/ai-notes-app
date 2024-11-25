@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { MenuIcon } from "lucide-react";
 import NewDocumentButton from "./NewDocumentButton";
 import {
   Sheet,
   SheetContent,
-  //SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -78,92 +76,75 @@ function Sidebar() {
     <>
       <NewDocumentButton />
 
-      <div className="flex py-4 flex-col space-y-4 md:max-w-36">
+      <div className="flex py-6 flex-col space-y-6 md:max-w-48">
         {loading && (
           <div className="flex items-center justify-center">
-            <svg
-              className="animate-spin h-6 w-6 text-gray-500"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v8H4z"
-              ></path>
-            </svg>
+            <div className="animate-spin h-8 w-8 rounded-full border-4 border-primary border-t-transparent" />
           </div>
         )}
 
         {!loading && groupedData.owner.length === 0 && (
-          <h2
-            className="text-gray-500 font-semibold
-      text-sm"
-          >
+          <h2 className="text-white font-medium text-sm px-4 py-2 bg-white/20 rounded-lg backdrop-blur-sm">
             No documents found.
           </h2>
         )}
 
         {!loading && groupedData.owner.length > 0 && (
-          <>
-            <h2
-              className="text-gray-500 font-semibold
-      text-sm"
-            >
+          <div className="space-y-4">
+            <h2 className="text-indigo-100 font-semibold text-sm px-2 flex items-center gap-2">
+              <span className="h-1 w-1 rounded-full bg-indigo-400"></span>
               My Documents
             </h2>
-            {groupedData.owner.map((doc) => {
-              return (
+            <div className="space-y-2">
+              {groupedData.owner.map((doc) => (
                 <SidebarOption
                   key={doc.id}
                   id={doc.id}
                   href={`/doc/${doc.id}`}
                 />
-              );
-            })}
-          </>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!loading && groupedData.editor.length > 0 && (
+          <div className="space-y-4">
+            <h2 className="text-indigo-100 font-semibold text-sm px-2 flex items-center gap-2">
+              <span className="h-1 w-1 rounded-full bg-indigo-400"></span>
+              Shared with Me
+            </h2>
+            <div className="space-y-2">
+              {groupedData.editor.map((doc) => (
+                <SidebarOption
+                  key={doc.id}
+                  id={doc.id}
+                  href={`/doc/${doc.id}`}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
-
-      {!loading && groupedData.owner.length > 0 && (
-        <>
-          <h2
-            className="text-gray-500 font-semibold
-      text-sm"
-          >
-            Shared with Me
-          </h2>
-          {groupedData.editor.map((doc) => {
-            return (
-              <SidebarOption key={doc.id} id={doc.id} href={`/doc/${doc.id}`} />
-            );
-          })}
-        </>
-      )}
     </>
   );
 
   return (
-    <div className="p-2 md:p-5 bg-gray-200 relative ">
+    <div className="p-2 md:p-5 min-h-screen bg-gradient-to-b from-indigo-900 via-purple-900 to-indigo-900 relative">
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger>
-            <MenuIcon className="p-2 hover:opacity-30 rounded-lg" size={40} />
+            <MenuIcon
+              className="p-2 text-white hover:bg-white/20 transition-colors duration-200 rounded-lg"
+              size={40}
+            />
           </SheetTrigger>
-          <SheetContent side={"left"}>
+          <SheetContent
+            side={"left"}
+            className="bg-gradient-to-b from-indigo-900 via-purple-900 to-indigo-900"
+          >
             <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-
-              <div>{menuOptions}</div>
+              <SheetTitle className="text-white">Menu</SheetTitle>
+              <div className="mt-4">{menuOptions}</div>
             </SheetHeader>
           </SheetContent>
         </Sheet>

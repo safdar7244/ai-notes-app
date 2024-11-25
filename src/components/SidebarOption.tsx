@@ -12,42 +12,43 @@ function SidebarOption({ href, id }: { href: string; id: string }) {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center">
-        <svg
-          className="animate-spin h-6 w-6 text-gray-500"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          ></circle>
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8v8H4z"
-          ></path>
-        </svg>
+      <div className="w-full p-3 bg-white/5 backdrop-blur-sm rounded-lg animate-pulse">
+        <div className="h-4 bg-white/10 rounded w-3/4"></div>
       </div>
     );
 
-  if (!data) return <p>Document not found</p>;
+  if (!data)
+    return (
+      <div className="w-full p-3 text-gray-300 bg-white/5 backdrop-blur-sm rounded-lg text-sm">
+        Document not found
+      </div>
+    );
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error)
+    return (
+      <div className="w-full p-3 text-red-300 bg-red-500/10 backdrop-blur-sm rounded-lg text-sm">
+        Error: {error.message}
+      </div>
+    );
 
   return (
     <Link
       href={href}
-      className={`relative border p-2 rounded-md ${
-        isActive ? "bg-gray-300 font-bold border-black" : "border-gray-400"
-      }`}
+      className={`block w-full p-3 rounded-lg transition-all duration-200 group
+        ${
+          isActive
+            ? "bg-white/20 text-white font-medium backdrop-blur-sm shadow-lg shadow-indigo-500/10"
+            : "text-gray-300 hover:bg-white/10 hover:text-white"
+        }`}
     >
-      <p className="truncate">{data.title}</p>
+      <p className="truncate text-sm flex items-center gap-2">
+        <span
+          className={`h-1.5 w-1.5 rounded-full ${
+            isActive ? "bg-indigo-400" : "bg-gray-400 group-hover:bg-indigo-400"
+          } transition-colors`}
+        ></span>
+        {data.title}
+      </p>
     </Link>
   );
 }

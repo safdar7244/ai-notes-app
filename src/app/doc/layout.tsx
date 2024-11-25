@@ -5,7 +5,11 @@ function PageLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <LiveBlocksProvider>{children}</LiveBlocksProvider>;
+  return (
+    <div className="bg-purple-200">
+      <LiveBlocksProvider>{children}</LiveBlocksProvider>
+    </div>
+  );
 }
 
 export default PageLayout;

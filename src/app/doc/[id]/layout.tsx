@@ -16,7 +16,12 @@ async function DocLayout({
     return redirectToSignIn();
   }
 
-  return <RoomProvider roomId={id}>{children}</RoomProvider>;
+  return (
+    <div className="bg-purple-200">
+      {" "}
+      <RoomProvider roomId={id}>{children}</RoomProvider>
+    </div>
+  );
 }
 
 export default DocLayout;
